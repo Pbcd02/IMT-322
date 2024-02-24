@@ -1,27 +1,31 @@
-#define LED 0
-int led1 = 0;
-int led2 = 1;
-int led3 = 2;
+
+#define LED1 4
+#define LED2 5
+#define LED3 2
+#define TIEMPOAPAGAR 200
+
 
 void setup() 
 {
-  pinMode(led1,OUTPUT);
-  pinMode(led2,OUTPUT);
-  pinMode(led3,OUTPUT);
+  pinMode(LED1,OUTPUT);
+  pinMode(LED2,OUTPUT);
+  pinMode(LED3,OUTPUT);
 }
 
 void loop() {
-  digitalWrite(led1,HIGH);
-  delay(200);
-  digitalWrite(led1,LOW);
 
-  digitalWrite(led2,HIGH);
-  delay(200);
-  digitalWrite(led2,LOW);
+  digitalWrite(LED1,HIGH);
+  delay(TIEMPOAPAGAR);
+  digitalWrite(LED1,LOW);
 
-  digitalWrite(led3,HIGH);
-  delay(200);
-  digitalWrite(led3,LOW);
+  digitalWrite(LED2,HIGH);
+  delay(TIEMPOAPAGAR);
+  digitalWrite(LED2,LOW);
 
-  delay(200);
+  digitalWrite(LED3,HIGH);
+  delay(TIEMPOAPAGAR);
+  digitalWrite(LED3,LOW);
+
+  delay(TIEMPOAPAGAR);
+  
 }
