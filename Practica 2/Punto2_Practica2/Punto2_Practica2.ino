@@ -1,26 +1,34 @@
-#define Pulsador 2
-#define Salida 3
-#define ledCont 7
+//Definiciones de pines (Arduino)
+#define PULSADOR 2
+#define SALIDA 3
+#define LEDCONT 7
+//Contador de pulsaciones del boton
 int contador = 0;
 
-void setup() 
+void setup()
 {
-  pinMode(Pulsador, INPUT_PULLUP);
-  pinMode(Salida, OUTPUT);
-  attachInterrupt(digitalPinToInterrupt(Pulsador), incremento, FALLING);
+  //Configura el pin del pulsador como entrada con resistencia pull-up
+  pinMode(PULSADOR, INPUT_PULLUP);
+  //Configura el pin de salida, es decir el LED
+  pinMode(SALIDA, OUTPUT);
+  //Se asigna una interrupción en el flanco de bajada (Cuando el botón esta presionado)
+  attachInterrupt(digitalPinToInterrupt(PULSADOR), incremento, FALLING);
+  //Inicia la comunicación serial
   Serial.begin(9600);
 }
 void loop() 
 {
   ledsito();
   Serial.println(contador);
+  //Tenemos una condicion si el contador es impar encendera el LED
   if (contador % 2 == 1) 
   {
-    digitalWrite(ledCont, HIGH);
-  } 
+    digitalWrite(LEDCONT, HIGH);
+  }
+  //Tenemos una condicion si el contador es par apagara el LED
   else 
   {
-    digitalWrite(ledCont, LOW);
+    digitalWrite(LEDCONT, LOW);
   }
 }
 void incremento()
@@ -29,8 +37,8 @@ void incremento()
 }
 void ledsito() 
 {
-  digitalWrite(Salida, HIGH);
+  digitalWrite(SALIDA, HIGH);
   delay(300);
-  digitalWrite(Salida, LOW);
+  digitalWrite(SALIDA, LOW);
   delay(300);
 }
