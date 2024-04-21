@@ -5,7 +5,7 @@
 //Variables para la ejecucion del codigo
 #define ANTIREBOTE 200
 
-int TD = 200;
+int EstadoBoton = 0;
 int Contador = 0;
 unsigned long tiempoEspera = 0;
 
