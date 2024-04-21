@@ -4,42 +4,65 @@
 #define ANTIREBOTE 200
 
 int EstadoBoton = 0;
-int Contador = 0;
 unsigned long tiempoEspera = 0;
+
+typedef enum
+{
+  NoHaceNada,
+  Mostrando
+}enciende;
+
+  enciende estado = NoHaceNada;
 
 void setup() 
 {
   Serial.begin(9600);
   pinMode(TRIGGER, OUTPUT);
   pinMode(ECHO, INPUT);
-  pinMode(BOTON, INPUT);
+  pinMode(BOTON, INPUT_PULLUP);
   digitalWrite(TRIGGER, LOW);
   attachInterrupt(digitalPinToInterrupt(BOTON), GestionarEstadoBoton, FALLING);
 }
 
-void loop() {
-  if (digitalRead(BOTON) == LOW) {
-    long t;
-    long d;
+void loop() 
+{
+  long t;
+  long d;
+  switch(estado)
+  {
+    case NoHaceNada:
 
-    digitalWrite(TRIGGER, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(TRIGGER, LOW);
+    break;
 
-    t = pulseIn(ECHO, HIGH);
-    d = t / 59;
+    case Mostrando:
+    unsigned long tiempoMostrando = 0;
+      digitalWrite(TRIGGER, HIGH);
+      delayMicroseconds(10);
+      digitalWrite(TRIGGER, LOW);
 
-    Serial.print("Distancia: ");
-    Serial.print(d);
-    Serial.print(" cm");
-    Serial.println();
-    delay(100);
+      t = pulseIn(ECHO, HIGH);
+      d = t / 59;
+
+      Serial.print("Distancia: ");
+      Serial.print(d);
+      Serial.print(" cm");
+      Serial.println();
+      delay(100);
+      tiempoMostrando = millis();
+      if (tiempoMostrando - tiempoEspera >= 5000)
+      {
+        tiempoEspera = millis();
+        estado = NoHaceNada;
+      }
+    break;
   }
 }
 
-void GestionarEstadoBoton() { // Cambiado el nombre de la función
+void GestionarEstadoBoton() 
+{
   if (millis() - tiempoEspera > ANTIREBOTE) 
   {
-    tiempoEspera = millis();
+    estado = Mostrando;
+    tiempoEspera=millis();
   }
 }
