@@ -22,6 +22,8 @@ void setup()
   pinMode(LED1,OUTPUT);
   pinMode(LED2,OUTPUT);
   pinMode(LED3,OUTPUT);
+  Serial.println("Selecciona el piso al que deseas ir");
+  Serial.println("1er piso = 0, 2do piso = 1, 3er piso = 2");
 }
 
 void loop() 
