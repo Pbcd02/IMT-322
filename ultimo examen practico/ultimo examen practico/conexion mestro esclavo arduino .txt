@@ -1,0 +1,11 @@
+void setup() {
+  Serial.begin(9600);  // Inicializar comunicación serial a 9600 bps
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    String estado = Serial.readStringUntil('\n');  // Leer el estado enviado por la Raspberry Pi
+    Serial.print("Estado de la puerta: ");
+    Serial.println(estado);
+  }
+}
